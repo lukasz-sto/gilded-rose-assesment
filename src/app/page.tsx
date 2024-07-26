@@ -1,6 +1,10 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
 
 export default function Home() {
-  return <main className={styles.main}></main>;
+  return (
+    <div>
+      Task is done here: <Link href={"/rose"}>Gilded Rose</Link>
+    </div>
+  );
 }

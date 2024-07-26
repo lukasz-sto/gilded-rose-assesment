@@ -13,15 +13,15 @@ const sampleItems: Item[] = [
   new Item("Conjured Mana Cake", 3, 6),
 ];
 
-const createDefaultItems = () => {
+const createDefaultItems = (items: Item[]) => {
   if (typeof structuredClone === "function") {
-    return structuredClone(sampleItems);
+    return structuredClone(items);
   }
-  return JSON.parse(JSON.stringify(sampleItems));
+  return JSON.parse(JSON.stringify(items));
 };
 
 export default function Rose() {
-  const [items, setItems] = useState(sampleItems);
+  const [items, setItems] = useState(createDefaultItems(sampleItems));
 
   const handleUpdateItems = () => {
     const gildedRose = new GildedRose(items);
@@ -29,19 +29,19 @@ export default function Rose() {
   };
 
   const handleResetItems = () => {
-    setItems(createDefaultItems());
+    setItems(createDefaultItems(sampleItems));
   };
 
   return (
     <>
       <h1>Gilded Rose</h1>
       <ul>Sample Items in different categories</ul>
-      {items.map((item, i) => {
+      {items.map(({ name, sellIn, quality }: Item, i: number) => {
         return (
           <li key={i}>
-            <strong>Name: </strong> {item.name}, <strong>SelIn: </strong>{" "}
-            {item.sellIn}, <strong>Quality: </strong>
-            {item.quality}
+            <strong>Name: </strong> {name}, <strong>SelIn: </strong> {sellIn},{" "}
+            <strong>Quality: </strong>
+            {quality}
           </li>
         );
       })}
